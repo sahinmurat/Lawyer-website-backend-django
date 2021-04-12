@@ -31,7 +31,7 @@ class Post(models.Model):
     title = models.CharField(max_length=1000)
     content = models.TextField(max_length=200000)
     image = models.URLField(max_length=10000, blank=True)     #  chARFIELD YA DA URL OLARAK KOYACAGIz
-    category = models.CharField(max_length=20, choices=COPTIONS)
+    category = models.CharField(max_length=20, choices=COPTIONS, default='Diğer' )
     # category = models.ForeignKey(
     #     Category, on_delete=models.PROTECT, related_name="cats")
     # category = models.ForeignKey(Category, on_delete = models.PROTECT)
