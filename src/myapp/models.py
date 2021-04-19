@@ -31,10 +31,10 @@ class Post(models.Model):
     title = models.CharField(max_length=1000)
     content = models.TextField(max_length=200000)
     image = models.URLField(max_length=10000, blank=True)     #  chARFIELD YA DA URL OLARAK KOYACAGIz
-    category = models.CharField(max_length=20, choices=COPTIONS, default='Diğer' )
+    # category = models.CharField(max_length=20, choices=COPTIONS, default='Diğer' )
     # category = models.ForeignKey(
     #     Category, on_delete=models.PROTECT, related_name="cats")
-    # category = models.ForeignKey(Category, on_delete = models.PROTECT)
+    category = models.ForeignKey(Category, on_delete = models.PROTECT)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
