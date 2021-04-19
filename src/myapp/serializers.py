@@ -6,7 +6,7 @@ from django.db.models import Q
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('name',)
+        fields = ('id','name')
         
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.CharField( source="author.username", read_only=True)# user = serializers.CharField( source="author.username", read_only=True)   
@@ -18,7 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many= True, read_only = True)
     # category = CategorySerializer(read_only = True)
     # category_name = serializers.SerializerMethodField()
-    # category = serializers.StringRelatedField()
+    category = serializers.StringRelatedField()
     author = serializers.CharField( source="author.username", read_only=True)
     status_name = serializers.SerializerMethodField()
     owner = serializers.SerializerMethodField(read_only = True)
@@ -29,8 +29,8 @@ class PostSerializer(serializers.ModelSerializer):
         read_only_fields = ['author', "publish_date", "last_updated","slug"]
     
     
-    def get_category_name(self, obj):
-        return obj.get_category_display()
+    # def get_category_name(self, obj):
+    #     return obj.get_category_display()
     
     def get_status_name(self, obj):
         return obj.get_status_display()
