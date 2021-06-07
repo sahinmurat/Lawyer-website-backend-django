@@ -5,10 +5,10 @@ from django.core.serializers import serialize
 import json
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
-from .models import Category, Comment,Post, Like, PostView
+from .models import  Comment,Post, Like, PostView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import PostSerializer, CommentSerializer, CategorySerializer
+from .serializers import PostSerializer, CommentSerializer
 from rest_framework import status
 from rest_framework import generics
 from django.contrib.auth.decorators import login_required
@@ -28,30 +28,30 @@ def list(request):
         serializer = PostSerializer(result_page, many = True, context = {'request': request})
         return paginator.get_paginated_response(serializer.data)
     
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def category(request):
-    if request.method == 'GET':
-        category = Category.objects.all()
-        serializer = CategorySerializer(category, many=True)
-        return Response(serializer.data)
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def category(request):
+#     if request.method == 'GET':
+#         category = Category.objects.all()
+#         serializer = CategorySerializer(category, many=True)
+#         return Response(serializer.data)
     
     
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def categorycreate(request):
-    paginator = PageNumberPagination()
-    paginator.page_size = 200
-    if request.method == 'POST':
-        print(request.data)
-        serializer = CategorySerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            data = {
-                'message': 'it is created'
-            }
-            return Response(data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def categorycreate(request):
+#     paginator = PageNumberPagination()
+#     paginator.page_size = 200
+#     if request.method == 'POST':
+#         print(request.data)
+#         serializer = CategorySerializer(data = request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             data = {
+#                 'message': 'it is created'
+#             }
+#             return Response(data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -62,8 +62,8 @@ def create(request):
         print(request.data)
         serializer = PostSerializer(data = request.data)
         if serializer.is_valid():
-            category_serialize = Category(request.data['category'])
-            serializer.save(author=request.user,  category=category_serialize)
+            # category_serialize = Category(request.data['category'])
+            # serializer.save(author=request.user,  category=category_serialize)
             data = {
                 'message': 'it is created'
             }
